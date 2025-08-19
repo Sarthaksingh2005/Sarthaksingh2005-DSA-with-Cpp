@@ -1,0 +1,32 @@
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) 
+    {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        bool iscycle = false;
+
+        // Step 1: Detect if cycle exists
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if (slow == fast) {
+                iscycle = true;
+                break;
+            }
+        }
+
+        // No cycle
+        if (!iscycle) return NULL;
+
+        // Step 2: Find the starting node of cycle
+        slow = head;
+        while (slow != fast) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+
+        return slow;  // or fast, both point to cycle start
+    }
+};
