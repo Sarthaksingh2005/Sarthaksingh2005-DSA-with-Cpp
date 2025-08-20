@@ -1,0 +1,62 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) 
+    {
+        // If the list is empty, return NULL
+        if (head == NULL) return NULL;
+
+        // Hash map to store mapping from old nodes to new nodes
+        unordered_map<Node*, Node*> m;
+
+        // ---- Step 1: Copy the head node ----
+        Node* newHead = new Node(head->val);  // create new node with same value as head
+        m[head] = newHead;                    // map old head → new head
+
+        // Pointers to traverse the old and new lists
+        Node* oldTemp = head->next;
+        Node* newTemp = newHead;
+
+        // ---- Step 2: Copy the next pointers (linear traversal) ----
+        while (oldTemp != NULL) {
+            Node* copyNode = new Node(oldTemp->val);  // create copy of current node
+            m[oldTemp] = copyNode;                   // map old node → new node
+            newTemp->next = copyNode;                // link new node to the new list
+
+            // Move forward
+            oldTemp = oldTemp->next;
+            newTemp = newTemp->next;
+        }
+
+        // ---- Step 3: Copy the random pointers ----
+        oldTemp = head;
+        newTemp = newHead;
+        while (oldTemp != NULL) {
+            if (oldTemp->random != NULL) {
+                // Set random pointer in new node using the map
+                newTemp->random = m[oldTemp->random];
+            }
+            // Move forward
+            oldTemp = oldTemp->next;
+            newTemp = newTemp->next;
+        }
+
+        // ---- Step 4: Return the new list head ----
+        return newHead;
+    }
+};
