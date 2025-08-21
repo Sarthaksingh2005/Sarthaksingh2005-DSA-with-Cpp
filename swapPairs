@@ -1,0 +1,41 @@
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) 
+    {
+        // Base case: if 0 or 1 node, return as is
+        if (head == NULL || head->next == NULL) {
+            return head;
+        }
+
+        ListNode* first = head;
+        ListNode* sec = head->next;
+        ListNode* prev = NULL;
+
+        while (first != NULL && sec != NULL) {
+            // Save the third node (start of next pair)
+            ListNode* third = sec->next;
+
+            // Swap first and second
+            sec->next = first;
+            first->next = third;
+
+            // Connect previous pair with current swapped pair
+            if (prev != NULL) {
+                prev->next = sec;
+            } else {
+                head = sec;  // update head on first swap
+            }
+
+            // Move pointers ahead for next iteration
+            prev = first;
+            first = third;
+            if (third != NULL) {
+                sec = third->next;
+            } else {
+                sec = NULL;
+            }
+        }
+
+        return head;  // ✅ return the new head after swaps
+    }
+};
