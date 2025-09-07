@@ -1,0 +1,50 @@
+class Solution {
+public:
+    string c(string num, int k) 
+    {
+        //1
+        stack<char>s;
+        for(char digit:num)
+        {
+            while(!s.empty()&&k>0&&s.top()>digit)
+            {
+                s.pop();
+                k--;
+            }
+            s.push(digit);
+        }
+
+        //2
+        while(k>0&&!s.empty())
+        {
+            s.pop();
+            k--;
+        }
+        //3
+        string result="";
+        while(!s.empty())
+        {
+            result+=s.top();
+            s.pop();
+        }
+        reverse(result.begin(),result.end());
+
+        //4
+        int i=0;
+        while(i<result.size()&&result[i]=='0')
+        {
+            i++;
+        }
+        result=result.substr(i);
+
+        //5
+        return result.empty()?"0":result;
+
+       
+
+
+        
+
+
+    }
+};
