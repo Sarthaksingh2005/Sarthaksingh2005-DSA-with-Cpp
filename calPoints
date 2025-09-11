@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int calPoints(vector<string>& operations) 
+    {
+       stack<int>s;
+       for(int i=0;i<operations.size();i++)
+       {
+        string op=operations[i];
+        if(op=="C")
+        {
+            if(!s.empty())
+            {
+                s.pop();
+            }
+        }
+            else if(op=="D")
+            {
+                if(!s.empty())
+                {
+                    int topval=s.top();
+                    s.push(topval*2);
+                }
+            }
+            else if(op=="+")
+            {
+                if(s.size()>=2)
+                {
+                    int first=s.top();
+                    s.pop();
+                    int sec=s.top();
+                    s.push(first);
+                    s.push(first+sec);
+                }
+            }
+            else
+            {
+                s.push(stoi(op));
+            }
+        
+       }
+       int sum=0;
+       while(!s.empty())
+       {
+        sum=sum+s.top();
+        s.pop();
+       }
+       return sum;
+    }
+};
