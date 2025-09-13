@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches)
+    {
+      //1 create quene
+      queue<int>q;
+      int n=students.size();
+      //2 push students in queue
+      for(int i=0;i<n;i++)
+      {
+        q.push(students[i]);
+      }
+    //3 rotatote array
+    int sandindex=0;
+    int rot=0;
+    while(!q.empty()&&rot<q.size())
+    { // students takes sandwitch
+       if(q.front()==sandwiches[sandindex])
+       {
+        q.pop();
+        sandindex++;
+        rot=0;
+       }
+       else
+       { 
+        //move it back
+         int st=q.front();
+         q.pop();
+         q.push(st);
+         rot++;
+
+       }
+    }
+    return q.size();
+    }
+    
+        
+    
+};
