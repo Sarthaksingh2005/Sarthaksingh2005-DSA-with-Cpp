@@ -1,4 +1,4 @@
-class Solution {
+erclass Solution {
 public:
     int maxProfit(vector<int>& prices) 
     {
