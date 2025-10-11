@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
+    {
+        if (root==NULL)// eg= 7(has no children so return NULL)
+        return NULL;
+
+        if(root->val==p->val||root->val==q->val)//check for findinf leftlca and rightlca
+        {
+            return root;//root means which receive value of of either p or q
+        }
+        TreeNode*leftlca=lowestCommonAncestor(root->left,p,q);//recursive function for left travesal tree with comparion of p and q
+        TreeNode*rightlca=lowestCommonAncestor(root->right,p,q);//same
+        if(leftlca&&rightlca)//eg: where root receive both from left and right subtree
+        {
+            return root;
+        }
+        else if(leftlca!=NULL)//if root node receive null from leftside and a valid value from right value fom side
+        {
+            return leftlca;
+        }
+        else
+        {
+            return rightlca;//same
+        }       
+    }
+};
