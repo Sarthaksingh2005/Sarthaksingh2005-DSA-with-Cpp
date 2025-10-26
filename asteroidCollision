@@ -1,4 +1,4 @@
-class Solution {
+hakclass Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) 
     {
